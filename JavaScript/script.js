@@ -1,9 +1,9 @@
-// Função para calcular o peso necessário e a quantidade total de correntes
 function calcularResultado() {
   const metragemPorQuilo = parseFloat(document.getElementById("metragemPorQuilo").value);
   const quantidade = parseInt(document.getElementById("quantidadeCorrentes").value);
   const tamanho = parseFloat(document.getElementById("tamanhoCorrente").value);
 
+  // Verificação de dados válidos
   if (
     isNaN(metragemPorQuilo) || metragemPorQuilo <= 0 ||
     isNaN(quantidade) || quantidade <= 0 ||
@@ -13,38 +13,34 @@ function calcularResultado() {
     return;
   }
 
-  // Converte o tamanho da corrente de centímetros para metros
-  const tamanhoEmMetros = tamanho / 100;
+  // Cálculo do comprimento total necessário em metros
+  const comprimentoTotal = (quantidade * tamanho) / 100; // Convertendo o tamanho para metros
 
-  // Cálculo do comprimento total necessário (em metros)
-  const comprimentoTotal = quantidade * tamanhoEmMetros;
-
-  // Cálculo do peso necessário em quilos
+  // Cálculo do peso necessário (em quilos)
   const pesoNecessario = comprimentoTotal / metragemPorQuilo;
 
-  // Converte o peso para gramas (1 kg = 1000g)
-  const pesoNecessarioEmGramas = pesoNecessario * 1000;
+  // Exibir o resultado de peso necessário no campo de texto
+  document.getElementById("resultadoPeso").innerText =
+    `Peso necessário para ${quantidade} correntes de ${tamanho} cm: ${pesoNecessario.toFixed(3)} kg`;
 
-  // Exibe o resultado
-  alert(`Peso necessário para as correntes: ${pesoNecessarioEmGramas.toFixed(2)}g`);
+  // Calcular a quantidade de correntes possíveis para 45cm, 50cm e 60cm em 1kg
+  const tamanhos = [45, 50, 60]; // Tamanhos em centímetros
+  const tabela = document.getElementById("tabelaQuantidades");
+  tabela.innerHTML = ""; // Limpar a tabela antes de adicionar novos dados
 
-  // Agora, vamos calcular o resultado da tabela com base nos dados fornecidos
-  const resultadoTabela = calcularTabela(pesoNecessarioEmGramas);
-  console.log(resultadoTabela); // Ou qualquer outra forma de exibir a tabela
-}
+  tamanhos.forEach((tamanhoCorrente) => {
+    // Cálculo da quantidade de correntes que cabem em 1kg para cada tamanho (arredondado para baixo)
+    const quantidadePorKg = Math.floor(metragemPorQuilo / (tamanhoCorrente / 100)); // Convertendo tamanho para metros e calculando a quantidade
 
-// Função de exemplo para calcular e exibir os resultados da tabela
-function calcularTabela(pesoCorrente) {
-  // Exemplo de cálculo para a tabela (substitua com seu cálculo real)
-  const tabela = [
-    { quantidade: 1, peso: pesoCorrente },
-    { quantidade: 2, peso: pesoCorrente * 2 },
-    { quantidade: 3, peso: pesoCorrente * 3 },
-    // Adicione mais entradas conforme necessário
-  ];
-
-  // Exibindo a tabela no console (ou poderia ser no DOM)
-  return tabela;
+    // Criar linha da tabela para o tamanho corrente
+    const linha = `
+      <tr>
+        <td>${tamanhoCorrente} cm</td>
+        <td>${quantidadePorKg}</td>
+      </tr>
+    `;
+    tabela.innerHTML += linha; // Adicionar linha na tabela
+  });
 }
 
 

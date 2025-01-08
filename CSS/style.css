@@ -6,6 +6,21 @@ body {
   background-color: #f9f9f9;
 }
 
+/* Centralizar o conteúdo do cabeçalho */
+header {
+  text-align: center;
+  padding: 20px 0;
+}
+
+/* Estilizar a imagem para ser circular e com sombra */
+.imagem-circular {
+  width: 150px; /* Altere o tamanho conforme necessário */
+  height: 150px; /* Deve ser o mesmo valor da largura para manter o formato circular */
+  border-radius: 50%; /* Tornar a imagem circular */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Sombra com contorno */
+  display: inline-block; /* Garante que a imagem fique centralizada */
+}
+
 h1 {
   color: #333;
 }

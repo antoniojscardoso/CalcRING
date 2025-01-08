@@ -23,8 +23,8 @@ function calcularResultado() {
   const pesoNecessarioGramas = pesoNecessarioKg * 1000;
 
   // Exibir o resultado de peso necessário no campo de texto (em gramas)
-  document.getElementById("resultadoPeso").innerText =
-    `Peso necessário para ${quantidade} correntes de ${tamanho} cm: ${pesoNecessarioGramas.toFixed(2)} g`;
+  document.getElementById("resultadoPeso").innerHTML =
+    `Peso necessário para ${quantidade} correntes de ${tamanho} cm:  <span class="peso-necesario">${pesoNecessarioGramas.toFixed(2)} g</span>`;
 
   // Calcular a quantidade de correntes possíveis para 45cm, 50cm e 60cm em 1kg
   const tamanhos = [45, 50, 60]; // Tamanhos em centímetros

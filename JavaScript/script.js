@@ -26,23 +26,30 @@ function calcularResultado() {
   document.getElementById("resultadoPeso").innerHTML =
     `Peso necessário para ${quantidade} correntes de ${tamanho} cm:  <span class="peso-necesario">${pesoNecessarioGramas.toFixed(2)} g</span>`;
 
-  // Calcular a quantidade de correntes possíveis para 45cm, 50cm e 60cm em 1kg
+  // Pesos de referência
+  const pesos = [100, 250, 500, 750, 1000]; // Pesos em gramas
   const tamanhos = [35, 45, 50, 60]; // Tamanhos em centímetros
   const tabela = document.getElementById("tabelaQuantidades");
   tabela.innerHTML = ""; // Limpar a tabela antes de adicionar novos dados
 
-  tamanhos.forEach((tamanhoCorrente) => {
-    // Cálculo da quantidade de correntes que cabem em 1kg para cada tamanho (arredondado para baixo)
-    const quantidadePorKg = Math.floor(metragemPorQuilo / (tamanhoCorrente / 100)); // Convertendo tamanho para metros e calculando a quantidade
+  // Criar cabeçalho da tabela
+  let headerRow = `<tr><th>Peso</th>`;
+  tamanhos.forEach(tamanhoCorrente => {
+    headerRow += `<th>${tamanhoCorrente} cm</th>`;
+  });
+  headerRow += `</tr>`;
+  tabela.innerHTML += headerRow;
 
-    // Criar linha da tabela para o tamanho corrente
-    const linha = `
-      <tr>
-        <td>${tamanhoCorrente} cm</td>
-        <td>${quantidadePorKg}</td>
-      </tr>
-    `;
-    tabela.innerHTML += linha; // Adicionar linha na tabela
+  // Preencher a tabela com a quantidade de correntes para os pesos de referência
+  pesos.forEach(peso => {
+    let row = `<tr><td>${peso}g</td>`;
+    tamanhos.forEach(tamanhoCorrente => {
+      // Calcular a quantidade de correntes que cabem no peso atual
+      const quantidadePorPeso = Math.floor(peso / (metragemPorQuilo * (tamanhoCorrente / 100)));
+      row += `<td>${quantidadePorPeso}</td>`;
+    });
+    row += `</tr>`;
+    tabela.innerHTML += row;
   });
 }
 

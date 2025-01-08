@@ -14,7 +14,7 @@
       }
 
       // Cálculo do comprimento total necessário (em metros)
-      const comprimentoTotal = (quantidade * tamanho) / 100;
+      const comprimentoTotal = (quantidade * tamanho) / 1000;
 
       // Cálculo do peso necessário
       const pesoNecessario = comprimentoTotal / metragemPorQuilo;
@@ -29,7 +29,7 @@
       tabela.innerHTML = "";
 
       tamanhos.forEach((tamanhoCorrente) => {
-        const quantidadePorKg = Math.floor(metragemPorQuilo / (tamanhoCorrente / 100)); // Convertendo para metros
+        const quantidadePorKg = Math.floor(metragemPorQuilo / (tamanhoCorrente / 1000)); // Convertendo para metros
         const linha = `
           <tr>
             <td>${tamanhoCorrente} cm</td>

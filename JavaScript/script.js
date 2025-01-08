@@ -14,7 +14,7 @@
       }
 
       // Cálculo do comprimento total necessário (em metros)
-      const comprimentoTotal = (quantidade * tamanho) / 1000;
+      const comprimentoTotal = (quantidade * tamanho) / 100;
 
       // Cálculo do peso necessário
       const pesoNecessario = comprimentoTotal / metragemPorQuilo;

@@ -20,8 +20,8 @@
       const pesoNecessario = comprimentoTotal / metragemPorQuilo;
 
       // Exibir resultado de peso necessário
-      document.getElementById("resultadoPeso").innerText =
-        `Peso necessário para ${quantidade} correntes de ${tamanho} cm: ${pesoNecessario.toFixed(3)}`;
+      document.getElementById("resultadoPeso").innerHTML =
+        `Peso necessário para ${quantidade} correntes de ${tamanho} cm: <span class="peso-necesario">${pesoNecessario.toFixed(3)}</span>`;
 
       // Calcular quantidade de correntes possíveis para cada tamanho (45cm, 50cm, 60cm)
       const tamanhos = [45, 50, 60];

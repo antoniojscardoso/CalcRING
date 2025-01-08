@@ -24,7 +24,7 @@
         `Peso necessário para ${quantidade} correntes de ${tamanho} cm: <span class="peso-necesario">${pesoNecessario.toFixed(3)}</span>`;
 
       // Calcular quantidade de correntes possíveis para cada tamanho (45cm, 50cm, 60cm)
-      const tamanhos = [0.45, 0.50, 0.60];
+      const tamanhos = [45, 50, 60];
       const tabela = document.getElementById("tabelaQuantidades");
       tabela.innerHTML = "";
 

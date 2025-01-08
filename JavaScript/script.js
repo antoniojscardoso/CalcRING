@@ -26,7 +26,7 @@ function calcularResultado() {
   document.getElementById("resultadoPeso").innerHTML =
     `Peso necessário para ${quantidade} correntes de ${tamanho} cm:  <span class="peso-necesario">${pesoNecessarioGramas.toFixed(2)} g</span>`;
 
-  // Pesos de referência
+  // Pesos de referência em gramas (100g, 250g, 500g, 750g, 1kg)
   const pesos = [100, 250, 500, 750, 1000]; // Pesos em gramas
   const tamanhos = [35, 45, 50, 60]; // Tamanhos em centímetros
   const tabela = document.getElementById("tabelaQuantidades");
@@ -45,6 +45,7 @@ function calcularResultado() {
     let row = `<tr><td>${peso}g</td>`;
     tamanhos.forEach(tamanhoCorrente => {
       // Calcular a quantidade de correntes que cabem no peso atual
+      // A quantidade é calculada a partir do valor inserido pelo usuário para a metragem total
       const quantidadePorPeso = Math.floor(peso / (metragemPorQuilo * (tamanhoCorrente / 100)));
       row += `<td>${quantidadePorPeso}</td>`;
     });

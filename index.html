@@ -15,13 +15,16 @@
   <h1>Calculadora de Correntes</h1>
 
   <!-- Input para Metragem por Quilo, Quantidade de Correntes e Tamanho -->
-  <div class="container">
-    <h2>Insira os Dados</h2>
-    <input type="number" id="metragemPorQuilo" placeholder="Metragem por quilo (m/kg)" min="0.1">
-    <input type="number" id="quantidadeCorrentes" placeholder="Quantidade de correntes" min="1">
-    <input type="number" id="tamanhoCorrente" placeholder="Tamanho da corrente (cm)" min="1">
-    <button onclick="calcularResultado()">Calcular</button>
-  </div>
+  <div class="form-container">
+    <label for="pesoTotal">Peso Total (kg):</label>
+    <input type="number" id="pesoTotal" name="pesoTotal">
+    
+    <label for="quantidadeCorrentes">Quantidade de Correntes:</label>
+    <input type="number" id="quantidadeCorrentes" name="quantidadeCorrentes">
+    
+    <label for="tamanhoCorrente">Tamanho da Corrente:</label>
+    <input type="number" id="tamanhoCorrente" name="tamanhoCorrente">
+</div>
 
   <!-- Exibir o resultado de Peso Necessário -->
   <div class="container">

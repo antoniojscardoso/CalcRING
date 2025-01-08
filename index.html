@@ -1,0 +1,41 @@
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calculadora de Correntes</title>
+  <link rel="stylesheet" href="CSS/style.css">
+</head>
+<body>
+  <h1>Calculadora de Correntes</h1>
+
+  <!-- Input para Metragem por Quilo, Quantidade de Correntes e Tamanho -->
+  <div class="container">
+    <h2>Insira os Dados</h2>
+    <input type="number" id="metragemPorQuilo" placeholder="Metragem por quilo (m/kg)" min="0.1">
+    <input type="number" id="quantidadeCorrentes" placeholder="Quantidade de correntes" min="1">
+    <input type="number" id="tamanhoCorrente" placeholder="Tamanho da corrente (cm)" min="1">
+    <button onclick="calcularResultado()">Calcular</button>
+  </div>
+
+  <!-- Exibir o resultado de Peso Necessário -->
+  <div class="container">
+    <p id="resultadoPeso"></p>
+  </div>
+
+  <!-- Tabela para exibir a quantidade total de correntes por tamanho -->
+  <div class="container">
+    <h2>Quantidade Total de Correntes por Tamanho</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Tamanho da Corrente (cm)</th>
+          <th>Quantidade Máxima (1kg)</th>
+        </tr>
+      </thead>
+      <tbody id="tabelaQuantidades"></tbody>
+    </table>
+  </div>
+  <script src="JavaScript/script.js"></script>
+</body>
+</html>
+

@@ -16,12 +16,15 @@ function calcularResultado() {
   // Cálculo do comprimento total necessário em metros
   const comprimentoTotal = (quantidade * tamanho) / 100; // Convertendo o tamanho para metros
 
-  // Cálculo do peso necessário (em quilos)
-  const pesoNecessario = comprimentoTotal / metragemPorQuilo;
+  // Cálculo do peso necessário (em quilogramas)
+  const pesoNecessarioKg = comprimentoTotal / metragemPorQuilo;
 
-  // Exibir o resultado de peso necessário no campo de texto
+  // Converter o peso necessário de quilogramas para gramas
+  const pesoNecessarioGramas = pesoNecessarioKg * 1000;
+
+  // Exibir o resultado de peso necessário no campo de texto (em gramas)
   document.getElementById("resultadoPeso").innerText =
-    `Peso necessário para ${quantidade} correntes de ${tamanho} cm: ${pesoNecessario.toFixed(3)} kg`;
+    `Peso necessário para ${quantidade} correntes de ${tamanho} cm: ${pesoNecessarioGramas.toFixed(2)} g`;
 
   // Calcular a quantidade de correntes possíveis para 45cm, 50cm e 60cm em 1kg
   const tamanhos = [45, 50, 60]; // Tamanhos em centímetros

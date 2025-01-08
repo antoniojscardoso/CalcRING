@@ -66,6 +66,11 @@ th {
   color: white;
 }
 
+ .peso-necesario {
+            font-weight: bold;  /* Torna o texto em negrito */
+            font-size: 2em;     /* Aumenta o tamanho da fonte para 2x maior */
+        }
+
 .container {
   margin-bottom: 8px;
 }

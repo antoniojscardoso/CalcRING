@@ -29,7 +29,7 @@
       tabela.innerHTML = "";
 
       tamanhos.forEach((tamanhoCorrente) => {
-        const quantidadePorKg = Math.floor(metragemPorQuilo / (tamanhoCorrente / 1000)); // Convertendo para metros
+        const quantidadePorKg = Math.floor(metragemPorQuilo / (tamanhoCorrente / 100)); // Convertendo para metros
         const linha = `
           <tr>
             <td>${tamanhoCorrente} cm</td>

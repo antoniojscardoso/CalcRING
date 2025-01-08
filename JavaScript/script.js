@@ -27,7 +27,7 @@ function calcularResultado() {
     `Peso necessário para ${quantidade} correntes de ${tamanho} cm:  <span class="peso-necesario">${pesoNecessarioGramas.toFixed(2)} g</span>`;
 
   // Calcular a quantidade de correntes possíveis para 45cm, 50cm e 60cm em 1kg
-  const tamanhos = [45, 50, 60]; // Tamanhos em centímetros
+  const tamanhos = [35, 45, 50, 60]; // Tamanhos em centímetros
   const tabela = document.getElementById("tabelaQuantidades");
   tabela.innerHTML = ""; // Limpar a tabela antes de adicionar novos dados
 

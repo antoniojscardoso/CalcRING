@@ -49,6 +49,11 @@ function calcularResultado() {
       const pesoPorCorrenteGramas = pesoPorCorrenteKg * 1000; // Convertendo para gramas
 
       // Calcular a quantidade de correntes que cabem no peso atual
-@@ -57,3 +57,4 @@
+      const quantidadePorPeso = Math.floor(peso / pesoPorCorrenteGramas); // Quantidade de correntes
+      row += `<td>${quantidadePorPeso}</td>`;
+    });
+    row += `</tr>`;
+    tabela.innerHTML += row;
   });
 }
+

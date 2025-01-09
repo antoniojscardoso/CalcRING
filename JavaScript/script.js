@@ -3,14 +3,15 @@ function calcularResultado() {
   const quantidade = parseInt(document.getElementById("quantidadeCorrentes").value);
   const tamanho = parseFloat(document.getElementById("tamanhoCorrente").value);
 
-// Atribuindo valores padrão para quantidade e tamanho
-quantidade = quantidade || 1;  // Se quantidade não for fornecida, usa 1
-tamanho = tamanho || 50;       // Se tamanho não for fornecido, usa 50
-
-// Verificação de dados válidos
-if (isNaN(metragemPorQuilo) || metragemPorQuilo <= 0) {
-  alert("Por favor, insira um valor válido para a metragem por quilo!");
-  return;
+  // Verificação de dados válidos
+  if (
+    isNaN(metragemPorQuilo) || metragemPorQuilo <= 0 ||
+    isNaN(quantidade) || quantidade <= 0 ||
+    isNaN(tamanho) || tamanho <= 0
+  ) {
+    alert("Por favor, insira valores válidos!");
+    return;
+  }
 
   // Cálculo do comprimento total necessário em metros
   const comprimentoTotal = (quantidade * tamanho) / 100; // Convertendo o tamanho para metros
@@ -48,12 +49,6 @@ if (isNaN(metragemPorQuilo) || metragemPorQuilo <= 0) {
       const pesoPorCorrenteGramas = pesoPorCorrenteKg * 1000; // Convertendo para gramas
 
       // Calcular a quantidade de correntes que cabem no peso atual
-      const quantidadePorPeso = Math.floor(peso / pesoPorCorrenteGramas); // Quantidade de correntes
-      row += `<td>${quantidadePorPeso}</td>`;
-    });
-    row += `</tr>`;
-    tabela.innerHTML += row;
+@@ -57,3 +57,4 @@
   });
 }
-
-

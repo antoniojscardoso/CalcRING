@@ -45,7 +45,7 @@ function calcularResultado() {
     let row = `<tr><td>${peso}g</td>`;
     tamanhos.forEach(tamanhoCorrente => {
       // Calcular o peso de uma única corrente com base no tamanho
-      const pesoPorCorrente = (tamanhoCorrente / 100) * metragemPorQuilo * 1000; // Peso por corrente em gramas
+      const pesoPorCorrente = (metragemPorQuilo * (tamanhoCorrente / 100)) * 1000; // Peso por corrente em gramas
 
       // Calcular a quantidade de correntes que cabem no peso atual
       const quantidadePorPeso = Math.floor(peso / pesoPorCorrente);

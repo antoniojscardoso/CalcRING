@@ -45,14 +45,14 @@ function calcularResultado() {
     let row = `<tr><td>${peso}g</td>`;
     tamanhos.forEach(tamanhoCorrente => {
       // Calcular o peso de uma única corrente com base no tamanho
-      const pesoPorCorrente = (metragemPorQuilo * (tamanhoCorrente / 100)) * 1000; // Peso por corrente em gramas
+      const pesoPorCorrente = (metragemPorQuilo * (tamanhoCorrente / 100)); // Peso por corrente em quilogramas
+      const pesoPorCorrenteEmGramas = pesoPorCorrente * 1000; // Convertendo para gramas
 
       // Calcular a quantidade de correntes que cabem no peso atual
-      const quantidadePorPeso = Math.floor(peso / pesoPorCorrente);
+      const quantidadePorPeso = Math.floor(peso / pesoPorCorrenteEmGramas);
       row += `<td>${quantidadePorPeso}</td>`;
     });
     row += `</tr>`;
     tabela.innerHTML += row;
   });
 }
-

@@ -36,42 +36,22 @@
 
   <h1>Calculadora de Correntes</h1>
 
-  <!-- Input para Metragem por Quilo, Quantidade de Correntes e Tamanho -->
   <div class="container">
-    <h2>Insira os Dados</h2>
-    
-    <!-- Adicionando a classe form-container para organização -->
-    <div class="form-container">
-      <label for="metragemPorQuilo">Metros por quilo (m/kg)</label>
-      <input type="number" id="metragemPorQuilo" placeholder="Metragem por quilo (m/kg)" min="0.1">
+    <h1>Cálculo de Correntes</h1>
 
-      <label for="quantidadeCorrentes">Quantidade de correntes</label>
-      <input type="number" id="quantidadeCorrentes" placeholder="Quantidade de correntes" min="1">
+    <label for="metragemPorQuilo">Metragem por quilo:</label>
+    <input type="number" id="metragemPorQuilo" placeholder="Digite a metragem por quilo (m/kg)" oninput="atualizarCalculos()">
 
-      <label for="tamanhoCorrente">Tamanho da corrente (cm)</label>
-      <input type="number" id="tamanhoCorrente" placeholder="Tamanho da corrente (cm)" min="1">
-    </div>
+    <div id="botoesTamanhos"></div>
 
-    <button onclick="calcularResultado()">Calcular</button>
-  </div>
+    <label for="quantidadeCorrentes">Quantidade de correntes:</label>
+    <input type="number" id="quantidadeCorrentes" placeholder="Digite a quantidade de correntes" oninput="atualizarCalculos()">
+    <div id="resultadoPeso"></div>
 
-  <!-- Exibir o resultado de Peso Necessário -->
-  <div class="container">
-    <p id="resultadoPeso"></p>
-  </div>
+    <label for="pesoDisponivel">Peso disponível (g):</label>
+    <input type="number" id="pesoDisponivel" placeholder="Digite o peso disponível em gramas" oninput="atualizarCalculos()">
+    <div id="resultadoQtd"></div>
 
-  <!-- Tabela para exibir a quantidade total de correntes por tamanho -->
-  <div class="container">
-    <h2>Quantidade Total de Correntes por Tamanho</h2>
-    <table>
-      <thead>
-        <tr>
-          <th>Quantidade Máxima (1kg)</th>
-          <th>Tamanho da Corrente (cm)</th>
-        </tr>
-      </thead>
-      <tbody id="tabelaQuantidades"></tbody>
-    </table>
   </div>
   <script src="JavaScript/script.js"></script>
 </body>

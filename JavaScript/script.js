@@ -42,7 +42,7 @@ function atualizarCalculos() {
     const comprimentoPossivel = pesoDisponivelKg * metragemPorQuilo; // Comprimento total possível
     const quantidadePossivel = Math.floor((comprimentoPossivel * 100) / tamanhoAtual); // Convertendo metros para unidades
 
-    resultadoQtd.innerHTML += `<br>Quantidade possível com ${pesoDisponivelGramas} g para correntes de ${tamanhoAtual} cm: <strong>${quantidadePossivel}</strong>`;
+    resultadoQtd.innerHTML += `Quantidade possível com ${pesoDisponivelGramas} g para correntes de ${tamanhoAtual} cm: <strong>${quantidadePossivel}</strong>`;
   }
 }
 

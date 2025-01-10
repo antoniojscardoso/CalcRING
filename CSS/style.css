@@ -56,10 +56,15 @@ input {
 #botoesTamanhos {
   display: flex;
   flex-wrap: nowrap;
-  overflow-x: auto;
+  overflow-x: auto; /* Habilita rolagem horizontal */
   padding: 10px 0;
-  gap: 10px;
+  gap: 10px; /* Espaço entre os botões */
   justify-content: center;
+}
+
+.botao-tamanho {
+  white-space: nowrap; /* Garante que o texto dos botões não quebre */
+  flex-shrink: 0; /* Evita que os botões sejam redimensionados em telas pequenas */
 }
 
 /* Tornar os inputs e rótulos responsivos */

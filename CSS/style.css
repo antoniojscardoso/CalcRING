@@ -52,6 +52,16 @@ input {
   font-size: 16px;
   font-weight: bold;
 }
+
+#botoesTamanhos {
+  display: flex;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  padding: 10px 0;
+  gap: 10px;
+  justify-content: center;
+}
+
 /* Tornar os inputs e rótulos responsivos */
 @media (max-width: 600px) {
   .form-container {

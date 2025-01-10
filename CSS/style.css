@@ -28,6 +28,15 @@ header {
   margin: 0 auto;
   text-align: center;
 }
+
+#botoesTamanhos {
+  display: flex;
+  flex-wrap: wrap; /* Permite quebrar para novas linhas */
+  gap: 10px; /* Espaço entre os botões */
+  justify-content: center; /* Centraliza os botões */
+  padding: 10px 0;
+}
+
 .botao-tamanho {
   margin: 5px;
   padding: 10px 20px;
@@ -51,20 +60,6 @@ input {
   margin-top: 20px;
   font-size: 16px;
   font-weight: bold;
-}
-
-#botoesTamanhos {
-  display: flex;
-  flex-wrap: nowrap;
-  overflow-x: auto; /* Habilita rolagem horizontal */
-  padding: 10px 0;
-  gap: 10px; /* Espaço entre os botões */
-  justify-content: center;
-}
-
-.botao-tamanho {
-  white-space: nowrap; /* Garante que o texto dos botões não quebre */
-  flex-shrink: 0; /* Evita que os botões sejam redimensionados em telas pequenas */
 }
 
 /* Tornar os inputs e rótulos responsivos */

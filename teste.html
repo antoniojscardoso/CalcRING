@@ -2,58 +2,46 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="icon" href="/Imagem/ring.ico" type="image/x-icon">
-   <!-- Ícone para dispositivos Android -->
-   <link rel="icon" sizes="192x192" href="Imagem/Ringfundobranco.png">
-
-   <!-- Para melhorar a aparência na tela inicial no Android -->
-   <meta name="mobile-web-app-capable" content="yes">
-   <meta name="theme-color" content="#007bff"> <!-- Cor da barra de navegação no Android -->
- 
-   <!-- Ícones para o Android -->
-   <link rel="icon" href="Imagem/Ringfundobranco.png" sizes="192x192">
-    <!-- Ícones para iOS -->
-  <link rel="apple-touch-icon" sizes="180x180" href="Imagem/Ringfundobranco.png">
-  <link rel="apple-touch-icon" sizes="120x120" href="Imagem/Ringfundobranco.png">
-
-  <!-- Cor da barra de status (para iOS) -->
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-
-  <!-- Definir que o app será exibido em tela cheia (sem barra de navegação) -->
-  <meta name="apple-mobile-web-app-capable" content="yes">
-
-  <!-- Cor de fundo para a tela inicial no iOS -->
-  <meta name="apple-mobile-web-app-status-bar-style" content="default">
-  <title>Calculadora de Correntes</title>
+  <title>Cálculo de Correntes</title>
   <style>
     body {
       font-family: Arial, sans-serif;
-      margin: 20px;
+      background-color: #f4f4f9;
+      margin: 0;
+      padding: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
     }
+
     .container {
       max-width: 600px;
-      margin: 0 auto;
+      width: 100%;
+      padding: 20px;
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
       text-align: center;
     }
-    .botao-tamanho {
-      margin: 5px;
-      padding: 10px 20px;
-      background-color: #007BFF;
-      color: white;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
+
+    label {
+      display: block;
+      margin: 15px 0 5px;
+      font-weight: bold;
+      text-align: left;
     }
-    .botao-tamanho.selecionado {
-      background-color: #0056b3;
-    }
-    input {
-      margin: 10px 0;
+
+    input,
+    select {
+      width: 100%;
       padding: 10px;
-      width: calc(100% - 20px);
-      border: 1px solid #ccc;
+      margin-bottom: 15px;
+      border: 1px solid #ddd;
       border-radius: 5px;
+      font-size: 16px;
     }
+
     #resultado {
       margin-top: 20px;
       font-size: 16px;
@@ -63,94 +51,86 @@
 </head>
 <body>
   <div class="container">
-    <h1>Cálculo de Correntes</h1>
+    <h2>Cálculo de Correntes Dinâmico</h2>
 
-    <label for="metragemPorQuilo">Metragem por quilo:</label>
-    <input type="number" id="metragemPorQuilo" placeholder="Digite a metragem por quilo (m/kg)" oninput="atualizarCalculos()">
+    <label for="pesoPorMetro">Peso total por metros (m/kg):</label>
+    <input type="number" id="pesoPorMetro" placeholder="Digite o peso total por metros" value="100" oninput="atualizarCalculos()">
 
-    <div id="botoesTamanhos"></div>
+    <label for="tamanhoCorrente">Escolha o tamanho da corrente (cm):</label>
+    <select id="tamanhoCorrente" onchange="atualizarCalculos()">
+      <option value="30">30 cm</option>
+      <option value="35">35 cm</option>
+      <option value="40">40 cm</option>
+      <option value="45">45 cm</option>
+      <option value="50" selected>50 cm</option>
+      <option value="60">60 cm</option>
+      <option value="70">70 cm</option>
+      <option value="80">80 cm</option>
+    </select>
 
     <label for="quantidadeCorrentes">Quantidade de correntes:</label>
-    <input type="number" id="quantidadeCorrentes" placeholder="Digite a quantidade de correntes" oninput="atualizarCalculos()">
-    <div id="resultadoPeso"></div>
+    <input type="number" id="quantidadeCorrentes" value="100" oninput="atualizarPorQuantidade()">
 
+    <label for="pesoNecessario">Peso necessário (g):</label>
+    <input type="number" id="pesoNecessario" value="" oninput="atualizarPorPeso()">
 
-    <label for="pesoDisponivel">Peso disponível (g):</label>
-    <input type="number" id="pesoDisponivel" placeholder="Digite o peso disponível em gramas" oninput="atualizarCalculos()">
-    <div id="resultadoQtd"></div>
-
+    <div id="resultado"></div>
   </div>
 
   <script>
-// Função para atualizar os cálculos
-function atualizarCalculos() {
-  const metragemPorQuilo = parseFloat(document.getElementById("metragemPorQuilo").value);
-  const quantidadeInput = document.getElementById("quantidadeCorrentes");
-  const pesoInput = document.getElementById("pesoDisponivel");
-  const tamanhoAtual = parseFloat(document.querySelector(".botao-tamanho.selecionado").dataset.tamanho);
+    // Função para atualizar os cálculos com base nos valores iniciais
+    function atualizarCalculos() {
+      const pesoPorMetro = parseFloat(document.getElementById("pesoPorMetro").value);
+      const tamanhoCorrente = parseFloat(document.getElementById("tamanhoCorrente").value);
+      const quantidadeCorrentes = parseInt(document.getElementById("quantidadeCorrentes").value);
 
-  // Verificação de dados válidos
-  if (isNaN(metragemPorQuilo) || metragemPorQuilo <= 0 || isNaN(tamanhoAtual) || tamanhoAtual <= 0) {
-    alert("Por favor, insira valores válidos para metragem por quilo e selecione um tamanho.");
-    return;
-  }
+      if (isNaN(pesoPorMetro) || pesoPorMetro <= 0 || isNaN(tamanhoCorrente) || tamanhoCorrente <= 0) {
+        alert("Por favor, insira valores válidos para peso total por metros e selecione um tamanho.");
+        return;
+      }
 
-  const resultadoPeso = document.getElementById("resultadoPeso");
-  resultadoPeso.innerHTML = ""; // Limpar o resultado
+      const comprimentoTotal = (quantidadeCorrentes * tamanhoCorrente) / 100; // Comprimento total em metros
+      const pesoNecessario = (comprimentoTotal / pesoPorMetro) * 1000; // Peso necessário em gramas
 
-  const resultadoQtd = document.getElementById("resultadoQtd");
-  resultadoQtd.innerHTML = ""; // Limpar o resultado
-
-  if (quantidadeInput.value) {
-    const quantidade = parseInt(quantidadeInput.value);
-    if (isNaN(quantidade) || quantidade <= 0) {
-      alert("Por favor, insira uma quantidade válida.");
-      return;
+      document.getElementById("pesoNecessario").value = pesoNecessario.toFixed(2);
     }
 
-    const comprimentoTotal = (quantidade * tamanhoAtual) / 100; // Convertendo tamanho para metros
-    const pesoNecessarioKg = comprimentoTotal / metragemPorQuilo;
-    const pesoNecessarioGramas = pesoNecessarioKg * 1000;
+    // Função para atualizar a quantidade com base no peso necessário
+    function atualizarPorPeso() {
+      const pesoPorMetro = parseFloat(document.getElementById("pesoPorMetro").value);
+      const tamanhoCorrente = parseFloat(document.getElementById("tamanhoCorrente").value);
+      const pesoNecessario = parseFloat(document.getElementById("pesoNecessario").value);
 
-    resultadoPeso.innerHTML += `Peso necessário para ${quantidade} correntes de ${tamanhoAtual} cm: <strong>${pesoNecessarioGramas.toFixed(2)} g</strong>`;
-  }
+      if (isNaN(pesoPorMetro) || pesoPorMetro <= 0 || isNaN(tamanhoCorrente) || tamanhoCorrente <= 0 || isNaN(pesoNecessario) || pesoNecessario <= 0) {
+        alert("Por favor, insira valores válidos.");
+        return;
+      }
 
-  if (pesoInput.value) {
-    const pesoDisponivelGramas = parseFloat(pesoInput.value);
-    if (isNaN(pesoDisponivelGramas) || pesoDisponivelGramas <= 0) {
-      alert("Por favor, insira um peso válido.");
-      return;
+      const comprimentoPossivel = (pesoNecessario / 1000) * pesoPorMetro; // Comprimento possível em metros
+      const quantidadeCorrentes = Math.floor((comprimentoPossivel * 100) / tamanhoCorrente); // Quantidade de correntes
+
+      document.getElementById("quantidadeCorrentes").value = quantidadeCorrentes;
     }
 
-    const pesoDisponivelKg = pesoDisponivelGramas / 1000;
-    const comprimentoPossivel = pesoDisponivelKg * metragemPorQuilo; // Comprimento total possível
-    const quantidadePossivel = Math.floor((comprimentoPossivel * 100) / tamanhoAtual); // Convertendo metros para unidades
+    // Função para atualizar o peso necessário com base na quantidade
+    function atualizarPorQuantidade() {
+      const pesoPorMetro = parseFloat(document.getElementById("pesoPorMetro").value);
+      const tamanhoCorrente = parseFloat(document.getElementById("tamanhoCorrente").value);
+      const quantidadeCorrentes = parseInt(document.getElementById("quantidadeCorrentes").value);
 
-    resultadoQtd.innerHTML += `<br>Quantidade possível com ${pesoDisponivelGramas} g para correntes de ${tamanhoAtual} cm: <strong>${quantidadePossivel}</strong>`;
-  }
-}
+      if (isNaN(pesoPorMetro) || pesoPorMetro <= 0 || isNaN(tamanhoCorrente) || tamanhoCorrente <= 0 || isNaN(quantidadeCorrentes) || quantidadeCorrentes <= 0) {
+        alert("Por favor, insira valores válidos.");
+        return;
+      }
 
-// Função para selecionar o tamanho
-function selecionarTamanho(elemento) {
-  document.querySelectorAll(".botao-tamanho").forEach(botao => botao.classList.remove("selecionado"));
-  elemento.classList.add("selecionado");
-  atualizarCalculos();
-}
+      const comprimentoTotal = (quantidadeCorrentes * tamanhoCorrente) / 100; // Comprimento total em metros
+      const pesoNecessario = (comprimentoTotal / pesoPorMetro) * 1000; // Peso necessário em gramas
 
-// HTML Dinâmico para o funcionamento:
-document.addEventListener("DOMContentLoaded", () => {
-  const tamanhos = [30, 35, 40, 45, 50, 60, 70, 80];
-  const botoesContainer = document.getElementById("botoesTamanhos");
+      document.getElementById("pesoNecessario").value = pesoNecessario.toFixed(2);
+    }
 
-  tamanhos.forEach(tamanho => {
-    const botao = document.createElement("button");
-    botao.textContent = `${tamanho} cm`;
-    botao.className = "botao-tamanho";
-    botao.dataset.tamanho = tamanho;
-    botao.onclick = () => selecionarTamanho(botao);
-    botoesContainer.appendChild(botao);
-  });
-});
+    // Inicialização para atualizar os cálculos na primeira execução
+    document.addEventListener("DOMContentLoaded", atualizarCalculos);
   </script>
 </body>
 </html>

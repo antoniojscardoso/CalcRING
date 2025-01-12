@@ -1,0 +1,148 @@
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 5px;
+    overflow-x: hidden; /* Impede o scroll horizontal */
+  }
+  
+  body {
+    font-family: Arial, sans-serif;
+    background-color: transparent;
+    margin: 0;
+    padding: 10px;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    overflow-y: auto; /* Adiciona o scroll vertical */
+  }
+  
+  header {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 5px 0;
+    width: auto; /* Ajuste para o tamanho desejado */
+  }
+  
+  header img {
+    width: 100px;
+    height: auto;
+    filter: drop-shadow(0 5px 10px rgba(0, 0, 0, 0.3)); /* Sombra flutuante */
+  }
+  
+  header img:hover {
+    filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.5)); /* Aumenta a sombra no hover */
+    transform: translateY(-10px); /* Move para cima no hover */
+    transition: transform 0.3s ease, filter 0.3s ease;
+  }
+  
+  .container {
+    max-width: 500px;
+    width: 100%;
+    margin: 10px auto; /* Adiciona margem automática para centralizar o container e margem nos lados */
+    padding: 10px; /* Padding para espaçamento interno */
+    background: transparent; /* Torna o container transparente */
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    gap: 10px;
+    max-height: 90vh; /* Limita a altura máxima do container */
+    overflow-y: auto; /* Adiciona o scroll vertical se necessário dentro do container */
+    overflow-x: hidden; /* Impede o scroll horizontal */
+  }
+  
+  /* Divs internas com cor de fundo */
+  .group,
+  .inline-group {
+    background-color: transparent; /* Cor de fundo das divs internas */
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombras leves nas divs */
+    gap: 10px;
+  }
+  
+  .group {
+    background-color: transparent;
+      gap: 10px;
+  
+  }
+  
+  .inline-group {
+    background-color: transparent;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 10px;
+    gap: 10px; /* Espaço entre os campos */
+    flex-wrap: nowrap;
+  }
+  
+  label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+    padding: 10px;
+    max-width: 90vh; /* Limita a altura máxima do container */
+  
+  }
+  
+  input,
+  select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+  }
+  
+  .group {
+    padding-right: 20px;
+    background-color: #ffffff;
+  }
+  
+  #resultado {
+    margin-top: 0px;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+  }
+  
+  /* Media Queries para telas grandes */
+  @media screen and (min-width: 1024px) {
+    .container {
+      max-width: 600px; /* Aumenta o tamanho do container em telas maiores */
+      padding: 20px; /* Aumenta o padding para telas grandes */
+    }
+  
+    .inline-group {
+      gap: 30px; /* Aumenta o espaço entre os campos */
+    }
+  
+    label, input, select {
+      font-size: 18px; /* Aumenta o tamanho da fonte em telas grandes */
+    }
+  }
+  
+  /* Media Queries para telas pequenas (móveis) */
+  @media screen and (max-width: 600px) {
+    .container {
+      padding: 15px; /* Ajusta o padding em telas pequenas */
+      margin: 5px;
+    }
+  
+    .inline-group {
+      flex-direction: row; /* Muda a disposição dos campos para coluna em telas pequenas */
+      gap: 15px; /* Diminui o espaço entre os campos */
+    }
+    .input-wrapper {
+        padding-right: 20px;
+      }
+
+    label, input, select {
+      font-size: 14px; /* Ajusta o tamanho da fonte em telas pequenas */
+    }
+  }

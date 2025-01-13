@@ -2,60 +2,51 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="icon" href="/Imagem/ring.ico" type="image/x-icon">
-   <!-- Ícone para dispositivos Android -->
-   <link rel="icon" sizes="192x192" href="Imagem/Ringfundobranco.png">
-
-   <!-- Para melhorar a aparência na tela inicial no Android -->
-   <meta name="mobile-web-app-capable" content="yes">
-   <meta name="theme-color" content="#007bff"> <!-- Cor da barra de navegação no Android -->
- 
-   <!-- Ícones para o Android -->
-   <link rel="icon" href="Imagem/Ringfundobranco.png" sizes="192x192">
-    <!-- Ícones para iOS -->
-  <link rel="apple-touch-icon" sizes="180x180" href="Imagem/Ringfundobranco.png">
-  <link rel="apple-touch-icon" sizes="120x120" href="Imagem/Ringfundobranco.png">
-
-  <!-- Cor da barra de status (para iOS) -->
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-
-  <!-- Definir que o app será exibido em tela cheia (sem barra de navegação) -->
-  <meta name="apple-mobile-web-app-capable" content="yes">
-
-  <!-- Cor de fundo para a tela inicial no iOS -->
-  <meta name="apple-mobile-web-app-status-bar-style" content="default">
-  <title>Calculadora de Correntes</title>
-  <link rel="stylesheet" href="CSS/style.css">
+  <link rel="stylesheet" href="CSS/teste.css">
+  <title>Cálculo de Correntes</title>
 </head>
 <body>
-
   <header>
-    <img src="Imagem/ring.png" alt="Logo" class="imagem-circular">
-    <h1>CRIAÇÕES RING</h1>
+    <img src="Imagem/ring.png" alt="Logo" >
+    <h2>Cálculo de Correntes</h2>
   </header>
-
-  <h1>Calculadora de Correntes</h1>
-
   <div class="container">
-
-    <label for="metragemPorQuilo">Metragem por quilo:</label>
-    <input type="number" id="metragemPorQuilo" placeholder="Digite a metragem por quilo (m/kg)" oninput="atualizarCalculos()">
-
-    <div id="botoesTamanhos"></div>
-
-    <div class="container">
-      <label for="quantidadeCorrentes">Quantidade de correntes:</label>
-      <input type="number" id="quantidadeCorrentes" placeholder="Digite a quantidade de correntes" oninput="atualizarCalculos()">
-      <div id="resultadoPeso"></div>
+    <!-- Grupo 1: Peso por metro e Tamanho da corrente -->
+    <div class="group">
+      <div class="input-wrapper">
+        <label for="pesoPorMetro">Total (m/kg):</label>
+        <input type="number" id="pesoPorMetro" placeholder="Insira Total de metros por Kg" value="100" oninput="atualizarCalculos()">
+      </div>
+      <div class="input-wrapper">
+        <label for="tamanhoCorrente">Escolha o tamanho da corrente (cm):</label>
+        <select id="tamanhoCorrente" onchange="atualizarCalculos()">
+          <option value="30">30 cm</option>
+          <option value="35">35 cm</option>
+          <option value="40">40 cm</option>
+          <option value="45">45 cm</option>
+          <option value="50" selected>50 cm</option>
+          <option value="60">60 cm</option>
+          <option value="70">70 cm</option>
+          <option value="80">80 cm</option>
+        </select>
+      </div>
     </div>
 
-    <div class="container">
-      <label for="pesoDisponivel">Peso disponível (g):</label>
-      <input type="number" id="pesoDisponivel" placeholder="Digite o peso disponível em gramas" oninput="atualizarCalculos()">
-      <div id="resultadoQtd"></div>
+    <!-- Grupo 2: Quantidade e Peso -->
+    <div class="inline-group">
+      <div class="input-wrapper">
+        <label for="quantidadeCorrentes">Quantidade de correntes:</label>
+        <input type="number" id="quantidadeCorrentes" placeholder="Insira quantidade" value="100" oninput="atualizarPorQuantidade()">
+      </div>
+      <div class="input-wrapper">
+        <label for="pesoNecessario">Peso necessário (g):</label>
+        <input type="number" id="pesoNecessario" placeholder="Insira peso" oninput="atualizarPorPeso()">
+      </div>
     </div>
 
+    <div id="resultado"></div>
   </div>
-  <script src="JavaScript/script.js"></script>
+
+  <script src="JavaScript/teste.js" ></script>
 </body>
 </html>

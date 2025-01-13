@@ -1,74 +1,125 @@
 @import url('https://fonts.googleapis.com/css2?family=Alef:wght@400;700&display=swap');
-
-body {
-  font-family: "Alef", serif;
-  margin: 0;
-  padding: 5px;
-  text-align: center;
-  background-color: #f9f9f9;
-}
-
-/* Centralizar o conteúdo do cabeçalho */
-header {
-  text-align: center;
-  padding: 5px 0;
-}
-
-/* Estilizar a imagem para ser circular e com sombra */
-.imagem-circular {
-  width: 150px; /* Altere o tamanho conforme necessário */
-  height: 150px; /* Deve ser o mesmo valor da largura para manter o formato circular */
-  border-radius: 50%; /* Tornar a imagem circular */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Sombra com contorno */
-  display: inline-block; /* Garante que a imagem fique centralizada */
-}
-
-.container {
-  max-width: 600px;
-  margin: 0 auto;
-  text-align: center;
-}
-
-#botoesTamanhos {
-  display: flex;
-  flex-wrap: wrap; /* Permite quebrar para novas linhas */
-  gap: 10px; /* Espaço entre os botões */
-  justify-content: center; /* Centraliza os botões */
-  padding: 10px 0;
-}
-
-.botao-tamanho {
-  margin: 5px;
-  padding: 10px 20px;
-  background-color: #007BFF;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-}
-.botao-tamanho.selecionado {
-  background-color: #0056b3;
-}
-input {
-  margin: 10px 0;
-  padding: 10px;
-  width: calc(100% - 20px);
-  border: 1px solid #ccc;
-  border-radius: 5px;
-}
-#resultado {
-  margin-top: 5px;
-  font-size: 16px;
-  font-weight: bold;
-}
-
-/* Tornar os inputs e rótulos responsivos */
-@media (max-width: 600px) {
-  .form-container {
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box; /* Inclui padding e bordas nas dimensões */
+  }
+  
+  html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    overflow-x: hidden; /* Impede scroll horizontal */
+    font-family: Alef, serif;
+  }
+  
+  body {
+    background-color: #f0f0f0; /* Exemplo de cor de fundo */
+    padding: 10px; /* Padding global para evitar "grude" com as bordas */
+  }
+  
+  /* Estilização do container principal */
+  .container {
+    width: 100%; /* Ocupa 100% da largura disponível */
+    max-width: 500px; /* Limita a largura máxima */
+    margin: 0 auto; /* Centraliza horizontalmente */
+    padding: 20px; /* Espaçamento interno */
+    background: transparent; /* Fundo branco */
+    display: flex;
+    flex-direction: column;
+    gap: 15px; /* Espaçamento entre elementos */
+    overflow: hidden; /* Evita overflow desnecessário */
+  }
+  
+  /* Estilização de elementos internos */
+  header {
+    width: 100%;
+    text-align: center; /* Centraliza conteúdo */
+    margin-bottom: 5px;
+  }
+  
+  header img {
+    width: 100px;
+    height: auto;
+    filter: drop-shadow(0 5px 10px rgba(0, 0, 0, 0.3));
+  }
+  
+  header img:hover {
+    filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.5));
+    transform: translateY(-10px);
+    transition: transform 0.3s ease, filter 0.3s ease;
+  }
+ 
+  .group,
+  .inline-group {
+    background-color: #f0f0f0;
+    gap: 10px; /* Espaçamento entre itens */
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
+    margin: 10px 0; /* Centraliza o grupo */
+    width: 100%; /* Garante que ocupa o tamanho do container */
+    display: flex;
+    flex-wrap: wrap; /* Permite quebra de linha para dispositivos menores */
+    justify-content: center; /* Centraliza elementos */
+  }
+  
+  label {
+    font-weight: bold;
+    margin: 10px 0;
+    padding: 10px;
+    text-align: left;
     width: 100%;
   }
-  .form-container label,
-  .form-container input {
+  
+  input,
+  select {
     width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
   }
-}
+  
+  /* Estilo para resultados */
+  #resultado {
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+    margin-top: 20px;
+  }
+  
+  /* Media Queries para dispositivos maiores */
+  @media screen and (min-width: 1024px) {
+    .container {
+      max-width: 600px;
+    }
+    label,
+    input,
+    select {
+      font-size: 18px;
+    }
+  }
+  
+  /* Media Queries para dispositivos pequenos */
+  @media screen and (max-width: 600px) {
+    body {
+      padding: 10px;
+    }
+  
+    .container {
+      padding: 15px;
+      margin: 0 auto;
+    }
+  
+    .inline-group, .group {
+      flex-direction: column; /* Alinha em coluna */
+      align-items: center;
+      gap: 10px;
+    }
+  }
+  

@@ -1,148 +1,127 @@
-html, body {
+/* Aplicação geral para ajustar bordas e tamanhos */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box; /* Inclui padding e bordas nas dimensões */
+  }
+  
+  html, body {
     height: 100%;
     margin: 0;
-    padding: 5px;
-    overflow-x: hidden; /* Impede o scroll horizontal */
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    overflow-x: hidden; /* Impede scroll horizontal */
+    font-family: Arial, sans-serif;
   }
   
   body {
-    font-family: Arial, sans-serif;
-    background-color: transparent;
-    margin: 0;
-    padding: 10px;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    overflow-y: auto; /* Adiciona o scroll vertical */
+    background-color: #f0f0f0; /* Exemplo de cor de fundo */
+    padding: 10px; /* Padding global para evitar "grude" com as bordas */
   }
   
-  header {
-    position: relative;
+  /* Estilização do container principal */
+  .container {
+    width: 100%; /* Ocupa 100% da largura disponível */
+    max-width: 500px; /* Limita a largura máxima */
+    margin: 0 auto; /* Centraliza horizontalmente */
+    padding: 20px; /* Espaçamento interno */
+    background: transparent; /* Fundo branco */
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    padding: 5px 0;
-    width: auto; /* Ajuste para o tamanho desejado */
+    gap: 15px; /* Espaçamento entre elementos */
+    overflow: hidden; /* Evita overflow desnecessário */
+  }
+  
+  /* Estilização de elementos internos */
+  header {
+    width: 100%;
+    text-align: center; /* Centraliza conteúdo */
+    margin-bottom: 20px;
   }
   
   header img {
     width: 100px;
     height: auto;
-    filter: drop-shadow(0 5px 10px rgba(0, 0, 0, 0.3)); /* Sombra flutuante */
+    filter: drop-shadow(0 5px 10px rgba(0, 0, 0, 0.3));
   }
   
   header img:hover {
-    filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.5)); /* Aumenta a sombra no hover */
-    transform: translateY(-10px); /* Move para cima no hover */
+    filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.5));
+    transform: translateY(-10px);
     transition: transform 0.3s ease, filter 0.3s ease;
   }
   
-  .container {
-    max-width: 500px;
-    width: 100%;
-    margin: 10px auto; /* Adiciona margem automática para centralizar o container e margem nos lados */
-    padding: 10px; /* Padding para espaçamento interno */
-    background: transparent; /* Torna o container transparente */
-    border-radius: 10px;
-    display: flex;
-    flex-direction: column;
-    text-align: center;
-    gap: 10px;
-    max-height: 90vh; /* Limita a altura máxima do container */
-    overflow-y: auto; /* Adiciona o scroll vertical se necessário dentro do container */
-    overflow-x: hidden; /* Impede o scroll horizontal */
-  }
-  
-  /* Divs internas com cor de fundo */
   .group,
   .inline-group {
-    background-color: transparent; /* Cor de fundo das divs internas */
-    padding: 10px;
+    background-color: #f9f9f9;
+    padding: 15px;
     border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombras leves nas divs */
-    gap: 10px;
-  }
-  
-  .group {
-    background-color: transparent;
-      gap: 10px;
-  
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
+    margin: 0 auto; /* Centraliza o grupo */
+    width: 100%; /* Garante que ocupa o tamanho do container */
   }
   
   .inline-group {
-    background-color: transparent;
     display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    padding: 10px;
-    gap: 10px; /* Espaço entre os campos */
-    flex-wrap: nowrap;
+    flex-wrap: wrap; /* Permite quebra de linha para dispositivos menores */
+    justify-content: center; /* Centraliza elementos */
+    gap: 10px; /* Espaçamento entre itens */
   }
   
   label {
-    display: block;
     font-weight: bold;
     margin-bottom: 5px;
-    padding: 10px;
-    max-width: 90vh; /* Limita a altura máxima do container */
-  
+    text-align: left;
+    width: 100%;
   }
   
   input,
   select {
     width: 100%;
     padding: 10px;
+    font-size: 16px;
     border: 1px solid #ddd;
     border-radius: 5px;
-    font-size: 16px;
   }
   
-  .group {
-    padding-right: 20px;
-    background-color: #ffffff;
-  }
-  
+  /* Estilo para resultados */
   #resultado {
-    margin-top: 0px;
     font-size: 16px;
     font-weight: bold;
     text-align: center;
+    margin-top: 20px;
   }
   
-  /* Media Queries para telas grandes */
+  /* Media Queries para dispositivos maiores */
   @media screen and (min-width: 1024px) {
     .container {
-      max-width: 600px; /* Aumenta o tamanho do container em telas maiores */
-      padding: 20px; /* Aumenta o padding para telas grandes */
+      max-width: 600px;
     }
-  
-    .inline-group {
-      gap: 30px; /* Aumenta o espaço entre os campos */
-    }
-  
-    label, input, select {
-      font-size: 18px; /* Aumenta o tamanho da fonte em telas grandes */
+    label,
+    input,
+    select {
+      font-size: 18px;
     }
   }
   
-  /* Media Queries para telas pequenas (móveis) */
+  /* Media Queries para dispositivos pequenos */
   @media screen and (max-width: 600px) {
+    body {
+      padding: 10px;
+    }
+  
     .container {
-      padding: 15px; /* Ajusta o padding em telas pequenas */
-      margin: 5px;
+      padding: 15px;
+      margin: 0 auto;
     }
   
     .inline-group {
-      flex-direction: row; /* Muda a disposição dos campos para coluna em telas pequenas */
-      gap: 15px; /* Diminui o espaço entre os campos */
-    }
-    .input-wrapper {
-        padding-right: 20px;
-      }
-
-    label, input, select {
-      font-size: 14px; /* Ajusta o tamanho da fonte em telas pequenas */
+      flex-direction: column; /* Alinha em coluna */
+      align-items: center;
+      gap: 10px;
     }
   }
+  

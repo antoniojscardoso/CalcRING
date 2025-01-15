@@ -1,69 +1,49 @@
-// Função para atualizar os cálculos
 function atualizarCalculos() {
-  const metragemPorQuilo = parseFloat(document.getElementById("metragemPorQuilo").value);
-  const quantidadeInput = document.getElementById("quantidadeCorrentes");
-  const pesoInput = document.getElementById("pesoDisponivel");
-  const tamanhoAtual = parseFloat(document.querySelector(".botao-tamanho.selecionado").dataset.tamanho);
+    const pesoPorMetro = parseFloat(document.getElementById("pesoPorMetro").value);
+    const tamanhoCorrente = parseFloat(document.getElementById("tamanhoCorrente").value);
+    const quantidadeCorrentes = parseInt(document.getElementById("quantidadeCorrentes").value);
 
-  // Verificação de dados válidos
-  if (isNaN(metragemPorQuilo) || metragemPorQuilo <= 0 || isNaN(tamanhoAtual) || tamanhoAtual <= 0) {
-    alert("Por favor, insira valores válidos para metragem por quilo e selecione um tamanho.");
-    return;
-  }
-
-  const resultadoPeso = document.getElementById("resultadoPeso");
-  resultadoPeso.innerHTML = ""; // Limpar o resultado
-
-  const resultadoQtd = document.getElementById("resultadoQtd");
-  resultadoQtd.innerHTML = ""; // Limpar o resultado
-
-  if (quantidadeInput.value) {
-    const quantidade = parseInt(quantidadeInput.value);
-    if (isNaN(quantidade) || quantidade <= 0) {
-      alert("Por favor, insira uma quantidade válida.");
+    if (isNaN(pesoPorMetro) || pesoPorMetro <= 0) {
+      alert("Por favor, insira uma metragem total válida.");
       return;
     }
 
-    const comprimentoTotal = (quantidade * tamanhoAtual) / 100; // Convertendo tamanho para metros
-    const pesoNecessarioKg = comprimentoTotal / metragemPorQuilo;
-    const pesoNecessarioGramas = pesoNecessarioKg * 1000;
+    const comprimentoTotal = (quantidadeCorrentes * tamanhoCorrente) / 100;
+    const pesoNecessario = (comprimentoTotal / pesoPorMetro) * 1000;
 
-    resultadoPeso.innerHTML += `Peso necessário para ${quantidade} correntes de ${tamanhoAtual} cm: <strong>${pesoNecessarioGramas.toFixed(2)} g</strong>`;
+    document.getElementById("pesoNecessario").value = pesoNecessario.toFixed(2);
   }
 
-  if (pesoInput.value) {
-    const pesoDisponivelGramas = parseFloat(pesoInput.value);
-    if (isNaN(pesoDisponivelGramas) || pesoDisponivelGramas <= 0) {
-      alert("Por favor, insira um peso válido.");
+  function atualizarPorPeso() {
+    const pesoPorMetro = parseFloat(document.getElementById("pesoPorMetro").value);
+    const tamanhoCorrente = parseFloat(document.getElementById("tamanhoCorrente").value);
+    const pesoNecessario = parseFloat(document.getElementById("pesoNecessario").value);
+
+    if (isNaN(pesoPorMetro) || pesoPorMetro <= 0) {
+      alert("Por favor, insira uma metragem total válida.");
       return;
     }
 
-    const pesoDisponivelKg = pesoDisponivelGramas / 1000;
-    const comprimentoPossivel = pesoDisponivelKg * metragemPorQuilo; // Comprimento total possível
-    const quantidadePossivel = Math.floor((comprimentoPossivel * 100) / tamanhoAtual); // Convertendo metros para unidades
+    const comprimentoPossivel = (pesoNecessario / 1000) * pesoPorMetro;
+    const quantidadeCorrentes = Math.floor((comprimentoPossivel * 100) / tamanhoCorrente);
 
-    resultadoQtd.innerHTML += `Quantidade possível com ${pesoDisponivelGramas} g para correntes de ${tamanhoAtual} cm: <strong>${quantidadePossivel}</strong>`;
+    document.getElementById("quantidadeCorrentes").value = quantidadeCorrentes;
   }
-}
 
-// Função para selecionar o tamanho
-function selecionarTamanho(elemento) {
-  document.querySelectorAll(".botao-tamanho").forEach(botao => botao.classList.remove("selecionado"));
-  elemento.classList.add("selecionado");
-  atualizarCalculos();
-}
+  function atualizarPorQuantidade() {
+    const pesoPorMetro = parseFloat(document.getElementById("pesoPorMetro").value);
+    const tamanhoCorrente = parseFloat(document.getElementById("tamanhoCorrente").value);
+    const quantidadeCorrentes = parseInt(document.getElementById("quantidadeCorrentes").value);
 
-// HTML Dinâmico para o funcionamento:
-document.addEventListener("DOMContentLoaded", () => {
-  const tamanhos = [30, 35, 40, 45, 50, 60, 70, 80];
-  const botoesContainer = document.getElementById("botoesTamanhos");
+    if (isNaN(pesoPorMetro) || pesoPorMetro <= 0) {
+      alert("Por favor, insira uma metragem total válida.");
+      return;
+    }
 
-  tamanhos.forEach(tamanho => {
-    const botao = document.createElement("button");
-    botao.textContent = `${tamanho} cm`;
-    botao.className = "botao-tamanho";
-    botao.dataset.tamanho = tamanho;
-    botao.onclick = () => selecionarTamanho(botao);
-    botoesContainer.appendChild(botao);
-  });
-});
+    const comprimentoTotal = (quantidadeCorrentes * tamanhoCorrente) / 100;
+    const pesoNecessario = (comprimentoTotal / pesoPorMetro) * 1000;
+
+    document.getElementById("pesoNecessario").value = pesoNecessario.toFixed(2);
+  }
+
+  document.addEventListener("DOMContentLoaded", atualizarCalculos);

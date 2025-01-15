@@ -59,7 +59,7 @@
  
   .group,
   .inline-group {
-    background-color: #f9f9f9;
+    background-color: #f0f0f0;
     gap: 10px; /* Espaçamento entre itens */
     padding: 15px;
     border-radius: 8px;

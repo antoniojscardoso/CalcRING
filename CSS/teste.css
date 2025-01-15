@@ -53,6 +53,9 @@
     transform: translateY(-10px);
     transition: transform 0.3s ease, filter 0.3s ease;
   }
+  canvas {
+    display: block;
+  }s
  
   .group,
   .inline-group {

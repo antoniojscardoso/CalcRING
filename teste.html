@@ -5,42 +5,36 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Calculadora de Frete</title>
     <script>
-        async function calcularFrete() {
-            const cepDestino = document.getElementById("cepDestino").value;
-            const peso = parseFloat(document.getElementById("peso").value);
-            const altura = parseFloat(document.getElementById("altura").value);
-            const largura = parseFloat(document.getElementById("largura").value);
-            const comprimento = parseFloat(document.getElementById("comprimento").value);
+       async function calcularFrete() {
+    const cepDestino = document.getElementById("cepDestino").value;
+    const peso = parseFloat(document.getElementById("peso").value);
+    const altura = parseFloat(document.getElementById("altura").value);
+    const largura = parseFloat(document.getElementById("largura").value);
+    const comprimento = parseFloat(document.getElementById("comprimento").value);
 
-            if (!cepDestino || !peso || !altura || !largura || !comprimento) {
-                alert("Por favor, preencha todos os campos.");
-                return;
-            }
+    if (!cepDestino || !peso || !altura || !largura || !comprimento) {
+        alert("Por favor, preencha todos os campos.");
+        return;
+    }
 
-            const cepOrigem = "01023050"; // CEP da loja (alterar conforme necessário)
+    // URL para o seu servidor backend (que estará em HTTPS)
+    const urlBackend = `https://seu-servidor-backend.com/calcular-frete?cep=${cepDestino}&peso=${peso}&altura=${altura}&largura=${largura}&comprimento=${comprimento}`;
 
-            // URL para consultar os Correios
-            const url = `http://ws.correios.com.br/calculador/CalcPrecoPrazo.asmx/CalcPrecoPrazo?nCdEmpresa=&sDsSenha=&nCdServico=04014,04510&sCepOrigem=${cepOrigem}&sCepDestino=${cepDestino}&nVlPeso=${peso}&nCdFormato=1&nVlComprimento=${comprimento}&nVlAltura=${altura}&nVlLargura=${largura}&nVlDiametro=0&sCdMaoPropria=N&nVlValorDeclarado=0&sCdAvisoRecebimento=N&StrRetorno=xml`;
+    try {
+        const response = await fetch(urlBackend);
+        const data = await response.json(); // Aqui você pode tratar a resposta
 
-            try {
-                const response = await fetch(url);
-                const data = await response.text(); // Dados em formato XML
-
-                // Converte o XML para JSON
-                const parser = new DOMParser();
-                const xmlDoc = parser.parseFromString(data, "text/xml");
-                const valorFrete = xmlDoc.getElementsByTagName("Valor")[0]?.textContent;
-
-                if (valorFrete) {
-                    document.getElementById("resultado").innerHTML = `Valor do frete: R$ ${valorFrete}`;
-                } else {
-                    document.getElementById("resultado").innerHTML = "Não foi possível calcular o frete.";
-                }
-            } catch (error) {
-                console.error("Erro na requisição:", error);
-                document.getElementById("resultado").innerHTML = "Erro ao calcular o frete.";
-            }
+        if (data && data.valor) {
+            document.getElementById("resultado").innerHTML = `Valor do frete: R$ ${data.valor}`;
+        } else {
+            document.getElementById("resultado").innerHTML = "Não foi possível calcular o frete.";
         }
+    } catch (error) {
+        console.error("Erro na requisição:", error);
+        document.getElementById("resultado").innerHTML = "Erro ao calcular o frete.";
+    }
+}
+
     </script>
 </head>
 <body>

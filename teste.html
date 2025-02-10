@@ -1,52 +1,70 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Calculadora de Frete Correios</title>
-</head>
-<body>
-    <h2>Calcular Frete</h2>
-    
-    <label>CEP do Cliente:</label>
-    <input type="text" id="cep" placeholder="Digite o CEP"><br><br>
-
-    <label>Peso (kg):</label>
-    <input type="number" id="peso" step="0.1"><br><br>
-
-    <label>Altura (cm):</label>
-    <input type="number" id="altura"><br><br>
-
-    <label>Largura (cm):</label>
-    <input type="number" id="largura"><br><br>
-
-    <label>Comprimento (cm):</label>
-    <input type="number" id="comprimento"><br><br>
-
-    <button onclick="calcularFrete()">Calcular</button>
-
-    <h3>Resultado:</h3>
-    <p id="resultado"></p>
-
+    <title>Calculadora de Frete</title>
     <script>
         async function calcularFrete() {
-            let cep = document.getElementById("cep").value;
-            let peso = document.getElementById("peso").value;
-            let altura = document.getElementById("altura").value;
-            let largura = document.getElementById("largura").value;
-            let comprimento = document.getElementById("comprimento").value;
+            const cepDestino = document.getElementById("cepDestino").value;
+            const peso = parseFloat(document.getElementById("peso").value);
+            const altura = parseFloat(document.getElementById("altura").value);
+            const largura = parseFloat(document.getElementById("largura").value);
+            const comprimento = parseFloat(document.getElementById("comprimento").value);
 
-            let urlBackend = `https://replit.com/@antoniojscardos/NodeServer?mobileBridge=1&hideBottomBar=1&forceTheme=replitDark&errorTrace=617f8b02-11ca-4f39-b43b-0a878ec3268b&mobileWebview=1&supportsUpsellBridge=1&permissionRequest=1&speechRecognition=1&workspace2=1#server.js`;
+            if (!cepDestino || !peso || !altura || !largura || !comprimento) {
+                alert("Por favor, preencha todos os campos.");
+                return;
+            }
+
+            const cepOrigem = "01023050"; // CEP da loja (alterar conforme necessário)
+
+            // URL para consultar os Correios
+            const url = `http://ws.correios.com.br/calculador/CalcPrecoPrazo.asmx/CalcPrecoPrazo?nCdEmpresa=&sDsSenha=&nCdServico=04014,04510&sCepOrigem=${cepOrigem}&sCepDestino=${cepDestino}&nVlPeso=${peso}&nCdFormato=1&nVlComprimento=${comprimento}&nVlAltura=${altura}&nVlLargura=${largura}&nVlDiametro=0&sCdMaoPropria=N&nVlValorDeclarado=0&sCdAvisoRecebimento=N&StrRetorno=xml`;
 
             try {
-                let response = await fetch(urlBackend);
-                let data = await response.text(); // API dos Correios retorna XML
+                const response = await fetch(url);
+                const data = await response.text(); // Dados em formato XML
 
-                document.getElementById("resultado").innerText = "Resposta XML recebida:\n" + data;
+                // Converte o XML para JSON
+                const parser = new DOMParser();
+                const xmlDoc = parser.parseFromString(data, "text/xml");
+                const valorFrete = xmlDoc.getElementsByTagName("Valor")[0]?.textContent;
+
+                if (valorFrete) {
+                    document.getElementById("resultado").innerHTML = `Valor do frete: R$ ${valorFrete}`;
+                } else {
+                    document.getElementById("resultado").innerHTML = "Não foi possível calcular o frete.";
+                }
             } catch (error) {
-                document.getElementById("resultado").innerText = "Erro ao calcular o frete!";
+                console.error("Erro na requisição:", error);
+                document.getElementById("resultado").innerHTML = "Erro ao calcular o frete.";
             }
         }
     </script>
+</head>
+<body>
+    <div style="margin: 20px;">
+        <h1>Calculadora de Frete</h1>
+
+        <label for="cepDestino">CEP de Destino:</label>
+        <input type="text" id="cepDestino" placeholder="Digite o CEP de destino"><br><br>
+
+        <label for="peso">Peso (kg):</label>
+        <input type="number" id="peso" placeholder="Peso em kg"><br><br>
+
+        <label for="altura">Altura (cm):</label>
+        <input type="number" id="altura" placeholder="Altura em cm"><br><br>
+
+        <label for="largura">Largura (cm):</label>
+        <input type="number" id="largura" placeholder="Largura em cm"><br><br>
+
+        <label for="comprimento">Comprimento (cm):</label>
+        <input type="number" id="comprimento" placeholder="Comprimento em cm"><br><br>
+
+        <button onclick="calcularFrete()">Calcular Frete</button>
+
+        <h2 id="resultado"></h2>
+    </div>
 </body>
 </html>

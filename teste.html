@@ -28,37 +28,23 @@
     <h3>Resultado:</h3>
     <p id="resultado"></p>
 
-    <iframe id="resultadoFrete" style="width: 100%; height: 600px; border: 1px solid #ddd; display: none;"></iframe>
-
     <script>
         async function calcularFrete() {
-            let cepDestino = document.getElementById("cep").value;
+            let cep = document.getElementById("cep").value;
             let peso = document.getElementById("peso").value;
             let altura = document.getElementById("altura").value;
             let largura = document.getElementById("largura").value;
             let comprimento = document.getElementById("comprimento").value;
-            let cepOrigem = "01023050"; // CEP da loja
 
-            let url = `https://viacep.com.br/ws/${cepDestino}/json/`;
+            let urlBackend = `https://replit.com/@antoniojscardos/NodeServer?mobileBridge=1&hideBottomBar=1&forceTheme=replitDark&errorTrace=2173484f-9301-4c62-8e67-76f75b1b6ac9&mobileWebview=1&supportsUpsellBridge=1&permissionRequest=1&speechRecognition=1&workspace2=1#server.js`;
 
             try {
-                let response = await fetch(url);
-                let cepData = await response.json();
+                let response = await fetch(urlBackend);
+                let data = await response.text(); // API dos Correios retorna XML
 
-                if (cepData.erro) {
-                    document.getElementById("resultado").innerText = "CEP inválido!";
-                    document.getElementById("resultadoFrete").style.display = "none";
-                    return;
-                }
-
-                let urlCorreios = `https://www2.correios.com.br/sistemas/precosPrazos/calculador.asp?cepOrigem=${cepOrigem}&cepDestino=${cepDestino}&peso=${peso}&altura=${altura}&largura=${largura}&comprimento=${comprimento}`;
-
-                document.getElementById("resultado").innerText = "Veja os valores abaixo:";
-                document.getElementById("resultadoFrete").src = urlCorreios;
-                document.getElementById("resultadoFrete").style.display = "block";
+                document.getElementById("resultado").innerText = "Resposta XML recebida:\n" + data;
             } catch (error) {
-                document.getElementById("resultado").innerText = "Erro ao buscar informações!";
-                document.getElementById("resultadoFrete").style.display = "none";
+                document.getElementById("resultado").innerText = "Erro ao calcular o frete!";
             }
         }
     </script>

@@ -1,53 +1,47 @@
-<html lang="en">
+<!DOCTYPE html>
+<html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="CSS/teste.css">
-  <script src="https://unpkg.com/zdog@1/dist/zdog.min.js"></script>
-  <script defer src="corrente.js"></script>
-  <title>Cálculo de Correntes</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de Frete</title>
 </head>
 <body>
-  <header>
-    <img src="Imagem/ring.png" alt="Logo" >
-    <h2>Cálculo de Correntes</h2>
-  </header>
-  <div class="container">
-    <!-- Grupo 1: Peso por metro e Tamanho da corrente -->
-    <div class="group">
-      <div class="input-wrapper">
-        <label for="pesoPorMetro">Total (m/kg):</label>
-        <input type="number" id="pesoPorMetro" placeholder="Insira Total de metros por Kg" value="100" oninput="atualizarCalculos()">
-      </div>
-      <div class="input-wrapper">
-        <label for="tamanhoCorrente">Escolha o tamanho da corrente (cm):</label>
-        <select id="tamanhoCorrente" onchange="atualizarCalculos()">
-          <option value="30">30 cm</option>
-          <option value="35">35 cm</option>
-          <option value="40">40 cm</option>
-          <option value="45">45 cm</option>
-          <option value="50" selected>50 cm</option>
-          <option value="60">60 cm</option>
-          <option value="70">70 cm</option>
-          <option value="80">80 cm</option>
-        </select>
-      </div>
-    </div>
+    <h2>Calcular Frete</h2>
+    <label>CEP do Cliente:</label>
+    <input type="text" id="cep" placeholder="Digite o CEP"><br>
 
-    <!-- Grupo 2: Quantidade e Peso -->
-    <div class="inline-group">
-      <div class="input-wrapper">
-        <label for="quantidadeCorrentes">Quantidade de correntes:</label>
-        <input type="number" id="quantidadeCorrentes" placeholder="Insira quantidade" value="100" oninput="atualizarPorQuantidade()">
-      </div>
-      <div class="input-wrapper">
-        <label for="pesoNecessario">Peso necessário (g):</label>
-        <input type="number" id="pesoNecessario" placeholder="Insira peso" oninput="atualizarPorPeso()">
-      </div>
-    </div>
+    <label>Peso (kg):</label>
+    <input type="number" id="peso" step="0.1"><br>
 
-    <div id="resultado"></div>
-  </div>
-  <script src="JavaScript/teste.js" ></script>
+    <label>Altura (cm):</label>
+    <input type="number" id="altura"><br>
+
+    <label>Largura (cm):</label>
+    <input type="number" id="largura"><br>
+
+    <label>Comprimento (cm):</label>
+    <input type="number" id="comprimento"><br>
+
+    <button onclick="calcularFrete()">Calcular</button>
+
+    <h3>Resultado:</h3>
+    <p id="resultado"></p>
+
+    <script>
+        async function calcularFrete() {
+            let cep = document.getElementById("cep").value;
+            let peso = document.getElementById("peso").value;
+            let altura = document.getElementById("altura").value;
+            let largura = document.getElementById("largura").value;
+            let comprimento = document.getElementById("comprimento").value;
+
+            let url = `https://api.speedy.com.br/frete?cep_destino=${cep}&cep_origem=04094000&peso=${peso}&altura=${altura}&largura=${largura}&comprimento=${comprimento}`;
+
+            let resposta = await fetch(url);
+            let dados = await resposta.json();
+
+            document.getElementById("resultado").innerText = `Frete PAC: R$${dados.pac.valor} (Prazo: ${dados.pac.prazo} dias)\nFrete Sedex: R$${dados.sedex.valor} (Prazo: ${dados.sedex.prazo} dias)`;
+        }
+    </script>
 </body>
 </html>

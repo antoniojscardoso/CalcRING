@@ -1,64 +1,162 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Calculadora de Frete</title>
-    <script>
-       async function calcularFrete() {
-    const cepDestino = document.getElementById("cepDestino").value;
-    const peso = parseFloat(document.getElementById("peso").value);
-    const altura = parseFloat(document.getElementById("altura").value);
-    const largura = parseFloat(document.getElementById("largura").value);
-    const comprimento = parseFloat(document.getElementById("comprimento").value);
-
-    if (!cepDestino || !peso || !altura || !largura || !comprimento) {
-        alert("Por favor, preencha todos os campos.");
-        return;
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cálculo de Correntes</title>
+  <style>
+    /* Estilos para o layout */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+      background-color: #f4f4f4;
     }
 
-    // URL para o seu servidor backend (que estará em HTTPS)
-const urlBackend = `https://antoniojscardoso-backend.replit.app/calcular-frete?cep=${cepDestino}&peso=${peso}&altura=${altura}&largura=${largura}&comprimento=${comprimento}`;
-
-    try {
-        const response = await fetch(urlBackend);
-        const data = await response.json(); // Aqui você pode tratar a resposta
-
-        if (data && data.valor) {
-            document.getElementById("resultado").innerHTML = `Valor do frete: R$ ${data.valor}`;
-        } else {
-            document.getElementById("resultado").innerHTML = "Não foi possível calcular o frete.";
-        }
-    } catch (error) {
-        console.error("Erro na requisição:", error);
-        document.getElementById("resultado").innerHTML = "Erro ao calcular o frete.";
+    header {
+      text-align: center;
+      margin-bottom: 30px;
     }
-}
 
-    </script>
+    header img {
+      max-width: 100px;
+    }
+
+    header h2 {
+      margin-top: 10px;
+    }
+
+    .container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .input-wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      width: 300px;
+    }
+
+    label {
+      margin-bottom: 8px;
+    }
+
+    .inline-group {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      width: 300px;
+    }
+
+    .input-wrapper input,
+    .input-wrapper select {
+      padding: 10px;
+      font-size: 16px;
+      width: 100%;
+      margin-top: 5px;
+    }
+
+    /* Estilos para a régua */
+    .ruler-container {
+      position: relative;
+      width: 100%;
+      max-width: 500px;
+      margin: 0 auto;
+    }
+
+    input[type="range"] {
+      width: 100%;
+      -webkit-appearance: none;
+      height: 5px;
+      background: #ddd;
+      border-radius: 5px;
+      outline: none;
+      cursor: pointer;
+    }
+
+    input[type="range"]:focus {
+      background: #ccc;
+    }
+
+    .ruler {
+      position: absolute;
+      top: 30px;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      font-size: 12px;
+    }
+
+    .ruler span {
+      display: inline-block;
+    }
+
+    #resultado {
+      margin-top: 20px;
+      font-size: 18px;
+    }
+  </style>
 </head>
 <body>
-    <div style="margin: 20px;">
-        <h1>Calculadora de Frete</h1>
-
-        <label for="cepDestino">CEP de Destino:</label>
-        <input type="text" id="cepDestino" placeholder="Digite o CEP de destino"><br><br>
-
-        <label for="peso">Peso (kg):</label>
-        <input type="number" id="peso" placeholder="Peso em kg"><br><br>
-
-        <label for="altura">Altura (cm):</label>
-        <input type="number" id="altura" placeholder="Altura em cm"><br><br>
-
-        <label for="largura">Largura (cm):</label>
-        <input type="number" id="largura" placeholder="Largura em cm"><br><br>
-
-        <label for="comprimento">Comprimento (cm):</label>
-        <input type="number" id="comprimento" placeholder="Comprimento em cm"><br><br>
-
-        <button onclick="calcularFrete()">Calcular Frete</button>
-
-        <h2 id="resultado"></h2>
+  <header>
+    <img src="https://via.placeholder.com/100" alt="Logo">
+    <h2>Cálculo de Correntes</h2>
+  </header>
+  <div class="container">
+    <!-- Grupo 1: Peso por metro e Tamanho da corrente -->
+    <div class="group">
+      <div class="input-wrapper">
+        <label for="pesoPorMetro">Total (m/kg):</label>
+        <input type="number" id="pesoPorMetro" placeholder="Insira Total de metros por Kg" value="100" oninput="atualizarCalculos()">
+      </div>
+      <div class="input-wrapper">
+        <label for="tamanhoCorrente">Escolha o tamanho da corrente (cm):</label>
+        <div class="ruler-container">
+          <input type="range" id="tamanhoCorrente" min="30" max="80" step="5" value="50" oninput="atualizarCalculos()">
+          <div class="ruler">
+            <span>30</span><span>35</span><span>40</span><span>45</span><span>50</span><span>55</span><span>60</span><span>65</span><span>70</span><span>75</span><span>80</span>
+          </div>
+        </div>
+      </div>
     </div>
+
+    <!-- Grupo 2: Quantidade e Peso -->
+    <div class="inline-group">
+      <div class="input-wrapper">
+        <label for="quantidadeCorrentes">Quantidade de correntes:</label>
+        <input type="number" id="quantidadeCorrentes" placeholder="Insira quantidade" value="100" oninput="atualizarPorQuantidade()">
+      </div>
+      <div class="input-wrapper">
+        <label for="pesoNecessario">Peso necessário (g):</label>
+        <input type="number" id="pesoNecessario" placeholder="Insira peso" oninput="atualizarPorPeso()">
+      </div>
+    </div>
+
+    <div id="resultado"></div>
+  </div>
+
+  <script>
+    function atualizarCalculos() {
+      const tamanhoCorrente = document.getElementById("tamanhoCorrente").value;
+      const resultadoDiv = document.getElementById("resultado");
+
+      // Exemplo simples: Atualizar o tamanho selecionado na tela
+      resultadoDiv.innerHTML = `Tamanho da corrente selecionado: ${tamanhoCorrente} cm`;
+    }
+
+    // Funções adicionais (se necessário) para cálculo de peso e quantidade
+    function atualizarPorQuantidade() {
+      // Aqui você pode adicionar a lógica para calcular com base na quantidade de correntes
+      console.log("Quantidade de correntes atualizada");
+    }
+
+    function atualizarPorPeso() {
+      // Aqui você pode adicionar a lógica para calcular com base no peso
+      console.log("Peso necessário atualizado");
+    }
+  </script>
 </body>
 </html>

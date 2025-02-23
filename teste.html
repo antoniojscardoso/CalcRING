@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Cálculo de Correntes</title>
   <style>
-    /* Estilos para o layout */
     body {
       font-family: Arial, sans-serif;
       margin: 0;
@@ -70,7 +69,6 @@
     <h2>Cálculo de Correntes</h2>
   </header>
   <div class="container">
-    <!-- Grupo 1: Peso por metro e Tamanho da corrente -->
     <div class="group">
       <div class="input-wrapper">
         <label for="pesoPorMetro">Total (m/kg):</label>
@@ -82,15 +80,14 @@
       </div>
     </div>
 
-    <!-- Grupo 2: Quantidade e Peso -->
     <div class="inline-group">
       <div class="input-wrapper">
         <label for="quantidadeCorrentes">Quantidade de correntes:</label>
-        <input type="number" id="quantidadeCorrentes" placeholder="Insira quantidade" value="100" oninput="atualizarPorQuantidade()">
+        <input type="number" id="quantidadeCorrentes" placeholder="Insira quantidade" oninput="calcularPeso()">
       </div>
       <div class="input-wrapper">
-        <label for="pesoNecessario">Peso necessário (g):</label>
-        <input type="number" id="pesoNecessario" placeholder="Insira peso" oninput="atualizarPorPeso()">
+        <label for="pesoNecessario">Peso disponível (g):</label>
+        <input type="number" id="pesoNecessario" placeholder="Insira peso" oninput="calcularQuantidade()">
       </div>
     </div>
 
@@ -99,20 +96,28 @@
 
   <script>
     function atualizarCalculos() {
-      const tamanhoCorrente = document.getElementById("tamanhoCorrente").value;
-      const resultadoDiv = document.getElementById("resultado");
-
-      // Exibir o tamanho digitado na tela
-      resultadoDiv.innerHTML = `Tamanho da corrente selecionado: ${tamanhoCorrente} cm`;
+      calcularPeso();
+      calcularQuantidade();
     }
 
-    function atualizarPorQuantidade() {
-      console.log("Quantidade de correntes atualizada");
+    function calcularPeso() {
+      const pesoPorMetro = parseFloat(document.getElementById("pesoPorMetro").value);
+      const tamanhoCorrente = parseFloat(document.getElementById("tamanhoCorrente").value) / 100; // Converter cm para metros
+      const quantidadeCorrentes = parseFloat(document.getElementById("quantidadeCorrentes").value);
+
+      if (!isNaN(pesoPorMetro) && !isNaN(tamanhoCorrente) && !isNaN(quantidadeCorrentes)) {
+        const pesoNecessario = (tamanhoCorrente / pesoPorMetro) * quantidadeCorrentes * 1000; // Converter para gramas
+        document.getElementById("pesoNecessario").value = pesoNecessario.toFixed(2);
+        document.getElementById("resultado").innerHTML = `Peso necessário para ${quantidadeCorrentes} correntes: ${pesoNecessario.toFixed(2)} g`;
+      }
     }
 
-    function atualizarPorPeso() {
-      console.log("Peso necessário atualizado");
-    }
-  </script>
-</body>
-</html>
+    function calcularQuantidade() {
+      const pesoPorMetro = parseFloat(document.getElementById("pesoPorMetro").value);
+      const tamanhoCorrente = parseFloat(document.getElementById("tamanhoCorrente").value) / 100; // Converter cm para metros
+      const pesoDisponivel = parseFloat(document.getElementById("pesoNecessario").value);
+
+      if (!isNaN(pesoPorMetro) && !isNaN(tamanhoCorrente) && !isNaN(pesoDisponivel)) {
+        const quantidadeCorrentes = (pesoDisponivel / 1000) * pesoPorMetro / tamanhoCorrente;
+        document.getElementById("quantidadeCorrentes").value = Math.floor(quantidadeCorrentes);
+        document.getElementById("resultado").inner

@@ -51,47 +51,11 @@
       width: 300px;
     }
 
-    .input-wrapper input,
-    .input-wrapper select {
+    .input-wrapper input {
       padding: 10px;
       font-size: 16px;
       width: 100%;
       margin-top: 5px;
-    }
-
-    /* Estilos para a régua */
-    .ruler-container {
-      position: relative;
-      width: 100%;
-      max-width: 500px;
-      margin: 0 auto;
-    }
-
-    input[type="range"] {
-      width: 100%;
-      -webkit-appearance: none;
-      height: 5px;
-      background: #ddd;
-      border-radius: 5px;
-      outline: none;
-      cursor: pointer;
-    }
-
-    input[type="range"]:focus {
-      background: #ccc;
-    }
-
-    .ruler {
-      position: absolute;
-      top: 30px;
-      width: 100%;
-      display: flex;
-      justify-content: space-between;
-      font-size: 12px;
-    }
-
-    .ruler span {
-      display: inline-block;
     }
 
     #resultado {
@@ -114,12 +78,7 @@
       </div>
       <div class="input-wrapper">
         <label for="tamanhoCorrente">Escolha o tamanho da corrente (cm):</label>
-        <div class="ruler-container">
-          <input type="range" id="tamanhoCorrente" min="30" max="80" step="5" value="50" oninput="atualizarCalculos()">
-          <div class="ruler">
-            <span>30</span><span>35</span><span>40</span><span>45</span><span>50</span><span>55</span><span>60</span><span>65</span><span>70</span><span>75</span><span>80</span>
-          </div>
-        </div>
+        <input type="number" id="tamanhoCorrente" placeholder="Digite o tamanho (30-80 cm)" min="30" max="80" value="50" oninput="atualizarCalculos()">
       </div>
     </div>
 
@@ -143,18 +102,15 @@
       const tamanhoCorrente = document.getElementById("tamanhoCorrente").value;
       const resultadoDiv = document.getElementById("resultado");
 
-      // Exemplo simples: Atualizar o tamanho selecionado na tela
+      // Exibir o tamanho digitado na tela
       resultadoDiv.innerHTML = `Tamanho da corrente selecionado: ${tamanhoCorrente} cm`;
     }
 
-    // Funções adicionais (se necessário) para cálculo de peso e quantidade
     function atualizarPorQuantidade() {
-      // Aqui você pode adicionar a lógica para calcular com base na quantidade de correntes
       console.log("Quantidade de correntes atualizada");
     }
 
     function atualizarPorPeso() {
-      // Aqui você pode adicionar a lógica para calcular com base no peso
       console.log("Peso necessário atualizado");
     }
   </script>

@@ -19,16 +19,7 @@
       </div>
       <div class="input-wrapper">
         <label for="tamanhoCorrente">Escolha o tamanho da corrente (cm):</label>
-        <select id="tamanhoCorrente" onchange="atualizarCalculos()">
-          <option value="30">30 cm</option>
-          <option value="35">35 cm</option>
-          <option value="40">40 cm</option>
-          <option value="45">45 cm</option>
-          <option value="50" selected>50 cm</option>
-          <option value="60">60 cm</option>
-          <option value="70">70 cm</option>
-          <option value="80">80 cm</option>
-        </select>
+      <input type="number" id="tamanhoCorrente" placeholder="Digite o tamanho (1-100 cm)" min="1" max="100" value="50" oninput="atualizarCalculos()">
       </div>
     </div>
 
